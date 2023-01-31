@@ -2,7 +2,7 @@ import Head from 'next/head';
 import Image from 'next/image';
 import { Inter } from '@next/font/google';
 import styles from '@/styles/Home.module.css';
-import Layout from '@/components/Layout';
+import Layout, { siteTitle } from '@/components/Layout';
 
 import Link from 'next/link';
 import utilStyle from '../styles/utils.module.css';
@@ -22,7 +22,10 @@ export async function getStaticProps() {
 
 export default function Home({ allPostData }) {
   return (
-    <Layout>
+    <Layout home>
+      <Head>
+        <title>{siteTitle}</title>
+      </Head>
       <section className={utilStyle.headingMd}>
         <p>next.jsで作った簡易ブログ</p>
       </section>
@@ -32,10 +35,10 @@ export default function Home({ allPostData }) {
         <div className={styles.grid}>
           {allPostData.map(({ id, title, data, thumbnail }) => (
             <article key={id}>
-              <Link legacyBehavior href={`/post/${id}`}>
+              <Link legacyBehavior href={`/posts/${id}`}>
                 <img src={`${thumbnail}`} className={styles.thumbnailImage} />
               </Link>
-              <Link legacyBehavior href={`/post/${id}`}>
+              <Link legacyBehavior href={`/posts/${id}`}>
                 <a className={utilStyle.boldText}>{title}</a>
               </Link>
               <br />
